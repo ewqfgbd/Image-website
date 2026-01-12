@@ -485,6 +485,7 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            cursor: pointer; /* 修改為指標手勢，暗示可點擊 */
         }
 
         .vision-card::before {
@@ -507,6 +508,7 @@
         .vision-card:hover {
             transform: translateY(-8px);
             box-shadow: var(--shadow-medium);
+            background-color: #f8fafc; /* 增加點擊誘導感 */
         }
 
         .vision-icon {
@@ -572,6 +574,55 @@
             background: var(--accent-teal);
             border-radius: 50%;
         }
+
+        /* --- 燈箱彈窗 CSS 樣式 --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            cursor: zoom-out;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-content {
+            width: 80%;
+            max-width: 1200px;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+        }
+        /* ----------------------- */
 
         /* Video Section */
         .video-section {
@@ -1028,6 +1079,14 @@
             .about-highlights {
                 grid-template-columns: 1fr;
             }
+            
+            .lightbox-close {
+                right: 20px;
+            }
+            
+            .lightbox-content {
+                width: 95%;
+            }
         }
 
         /* Mobile Menu */
@@ -1057,7 +1116,6 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <a href="#" class="nav-logo">闕士傑</a>
@@ -1084,7 +1142,6 @@
         <a href="#download" onclick="toggleMenu()">下載專區</a>
     </div>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-pattern"></div>
         <div class="hero-container">
@@ -1120,12 +1177,11 @@
         </div>
     </section>
 
-    <!-- About Section -->
     <section class="about" id="about">
         <div class="about-container">
             <div class="section-header">
                 <span class="section-label">About</span>
-                <h2 class="section-title">關於闘士傑</h2>
+                <h2 class="section-title">關於闕士傑</h2>
                 <p class="section-description">誠信、認真、可溝通，不逃避問題</p>
             </div>
             <div class="about-content">
@@ -1200,17 +1256,15 @@
         </div>
     </section>
 
-    <!-- Vision Section -->
     <section class="vision" id="vision">
         <div class="vision-container">
             <div class="section-header">
                 <span class="section-label">Vision</span>
                 <h2 class="section-title">六大願景承諾</h2>
-                <p class="section-description">從個人效率到專業精進，從基層守護到國際連結，這是一個環環相扣的完整藍圖</p>
+                <p class="section-description">從個人效率到專業精進，從基層守護到國際連結，這是一個環環相扣的完整藍圖（點擊卡片可放大查看）</p>
             </div>
             <div class="vision-grid">
-                <!-- Vision 1 -->
-                <div class="vision-card fade-in">
+                <div class="vision-card fade-in" onclick="openLightbox('六大願景_圖檔_點選放大用/1_six_prospective_1.png')">
                     <div class="vision-icon">📚</div>
                     <span class="vision-number">政見 ①</span>
                     <h3>新知傳遞</h3>
@@ -1223,8 +1277,7 @@
                     </ul>
                 </div>
 
-                <!-- Vision 2 -->
-                <div class="vision-card fade-in">
+                <div class="vision-card fade-in" onclick="openLightbox('六大願景_圖檔_點選放大用/2_six_perspective_2.png')">
                     <div class="vision-icon">📱</div>
                     <span class="vision-number">政見 ②</span>
                     <h3>服務升級</h3>
@@ -1237,8 +1290,7 @@
                     </ul>
                 </div>
 
-                <!-- Vision 3 -->
-                <div class="vision-card fade-in">
+                <div class="vision-card fade-in" onclick="openLightbox('六大願景_圖檔_點選放大用/3_six_perspective_3.png')">
                     <div class="vision-icon">🔬</div>
                     <span class="vision-number">政見 ③</span>
                     <h3>手術精進</h3>
@@ -1251,8 +1303,7 @@
                     </ul>
                 </div>
 
-                <!-- Vision 4 -->
-                <div class="vision-card fade-in">
+                <div class="vision-card fade-in" onclick="openLightbox('六大願景_圖檔_點選放大用/4_six_perspective_4.png')">
                     <div class="vision-icon">🛡️</div>
                     <span class="vision-number">政見 ④</span>
                     <h3>守護基層</h3>
@@ -1265,8 +1316,7 @@
                     </ul>
                 </div>
 
-                <!-- Vision 5 -->
-                <div class="vision-card fade-in">
+                <div class="vision-card fade-in" onclick="openLightbox('六大願景_圖檔_點選放大用/5_six_perspective_5.png')">
                     <div class="vision-icon">🌏</div>
                     <span class="vision-number">政見 ⑤</span>
                     <h3>國際深耕</h3>
@@ -1279,8 +1329,7 @@
                     </ul>
                 </div>
 
-                <!-- Vision 6 -->
-                <div class="vision-card fade-in">
+                <div class="vision-card fade-in" onclick="openLightbox('六大願景_圖檔_點選放大用/6_six_perspective_6.png')">
                     <div class="vision-icon">🧠</div>
                     <span class="vision-number">政見 ⑥</span>
                     <h3>全台智庫</h3>
@@ -1296,7 +1345,11 @@
         </div>
     </section>
 
-    <!-- Quote Section -->
+    <div id="visionLightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightboxImg" src="" alt="願景放大圖">
+    </div>
+
     <section class="quote-section">
         <div class="quote-container">
             <p class="quote-text">
@@ -1306,7 +1359,6 @@
         </div>
     </section>
 
-    <!-- Video Section -->
     <section class="video-section" id="video">
         <div class="video-container">
             <div class="section-header">
@@ -1327,37 +1379,35 @@
         </div>
     </section>
 
-    <!-- Download Section -->
     <section class="download-section" id="download">
         <div class="download-container">
             <div class="download-box">
                 <h2 class="download-title">下載完整文件</h2>
-                <p class="download-description">隨信附上六大願景圖卡，歡迎下載詳閱</p>
+                <p class="download-description">歡迎下載詳閱</p>
                 <div class="download-buttons">
-                    <a href="TUA_2026_闕士傑六大願景政見_V1_1.pdf" class="download-btn download-btn-primary" download>
+                    <a href="New_attachment/TUA 2026 闕士傑六大願景政見_公開信 V1.6.pdf" class="download-btn download-btn-primary" download>
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
-                        下載政見圖卡 (第一頁)
+                        闕士傑六大願景政見_公開信
                     </a>
-                    <a href="闕士傑的中秋祝賀_及參選理念說明_V0_7_10_03_2025.pdf" class="download-btn download-btn-secondary" download>
+                    <a href="New_attachment/闕士傑的中秋祝賀_及參選理念說明_V0.7 10.03.2025.pdf" class="download-btn download-btn-secondary" download>
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
-                        下載政見圖卡 (第二頁)
+                        中秋祝賀_及參選理念
                     </a>
-                    <a href="專業升級_智慧學會_圖形版_V0_2.pdf" class="download-btn download-btn-secondary" download>
+                    <a href="New_attachment/闕士傑 TUA2026 六大願景_懶人包_V1.6.pdf" class="download-btn download-btn-secondary" download>
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
-                        下載政見圖卡 (第三頁)
+                        六大願景_懶人包
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Journey Section -->
     <section class="journey" id="journey">
         <div class="journey-container">
             <div class="section-header">
@@ -1410,7 +1460,6 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="cta-section" id="contact">
         <div class="cta-container">
             <h2 class="cta-title">一起為 TUA 創造新局</h2>
@@ -1424,7 +1473,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-content">
@@ -1460,12 +1508,34 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 闘士傑競選團隊 | 懇請支持</p>
+                <p>© 2026 闕士傑競選團隊 | 懇請支持</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // --- 燈箱功能 JavaScript ---
+        function openLightbox(imgSrc) {
+            const lightbox = document.getElementById('visionLightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            
+            // 設定圖片並顯示
+            lightboxImg.src = imgSrc;
+            lightbox.classList.add('active');
+            
+            // 禁止背景捲動
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('visionLightbox');
+            lightbox.classList.remove('active');
+            
+            // 恢復背景捲動
+            document.body.style.overflow = 'auto';
+        }
+        // -----------------------
+
         // Mobile Menu Toggle
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
